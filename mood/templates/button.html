@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style12.css">
+    <title></title>
+  </head>
+  <body>
+
+    <header>
+      <nav class="navbar">
+
+        <div class="navbar__brand">
+          <img src="logo.png" alt="logo" class="navbar__logo"> <!--alt - alternative text - if image fails to load-->
+        </div>
+
+        <div class="navbar__nav__items"> <!--these are good convections for production level coding i.e, nav_...-->
+            <button class="nav__item button__primary">Explore</button>
+        </div>
+
+      </nav>
+    </header>
+
+    <main class="container"> <!--container provides padding throughout the webpage-->
+       <!-- Hero section -->
+           <section class="hero__container">
+
+             <div class="hero__image__container">
+               <img src="emotion.gif" class="hero__image">
+             </div>
+
+             <div class="hero__description">
+               <h1 class="hero__text">
+                 Lighten up your Mood with Music and Mood Muze.
+               </h1>
+
+             </div>
+
+           </section>
+
+           <!--explore menu-->
+           <section class="explore__menu__container">
+             <h1 class="explore__menu__text">Explore Our Features</h1>
+             <div class="explore__menu__gradient__bg">
+
+             </div>
+             <div class="explore__menu__lists">
+
+               <!--FER-->
+               <div class="food__card">
+
+                 <div class="food__card__image__container">
+                   <img src="emotion2.gif" alt="burger" class="food__image">
+                 </div>
+
+                 <div class="food__card__description">
+                   <h3 class="food__title">Emotion</h3>  
+                   <button id="startDetection" class="button__primary">See my face <span style="color:#7c4dc7 "></span></button>
+                   
+                 </div>
+
+               </div>
+
+               <!--Geolocation-->
+               <div class="food__card" id="pizza__card"> <!--we strictly want to override css :- we give id-->
+
+                 <div class="food__card__image__container">
+                   <img src="location.gif" alt="pizza" class="food__image">
+                 </div>
+
+                 <div class="food__card__description">
+                   <h3 class="food__title">Geolocation</h3>
+                   <button id="runScriptButton" class="button__primary">Track me!<span style="color:#7c4dc7 "></span></button>
+                   <!-- <script src="script.js"></script> -->
+                 </div>
+
+               </div>
+               
+             </div>
+           </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#runScriptButton").click(function(){
+                $.ajax({
+                    url: "http://localhost:5001/run_script",
+                    type: "GET",
+                    success: function(response) {
+                        alert(response);
+                    }
+                    
+                });
+            });
+        });
+
+        document.getElementById("startDetection").addEventListener("click", function() {
+          fetch('http://localhost:5000/start_detection')
+              .then(response => response.json())
+              .then(data => console.log(data))
+              .catch(error => console.error('Error:', error));
+      });
+    </script>
+    </main>
+
+   </body>
+</html>

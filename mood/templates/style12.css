@@ -1,0 +1,182 @@
+*{
+    margin: 0;
+    padding: 0;
+  }
+  
+  body{
+    background: url('bg3.jpg');
+    background-size: auto;
+    background-position: center;
+    font-family: 'Merriweather', serif;
+    background-color: #a9b9d6;
+  }
+  
+  .navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: transparent;
+  }
+  
+  .navbar__brand{ /*we shouldn't resize image as it might look squeezed or strectched
+  instead we reduced size of parent division and gave child 100% width of parent*/
+    width: 100px;
+  }
+  
+  .navbar__logo{
+    width: 100%;
+  }
+  
+  .button__primary{
+    background-image: linear-gradient( /*linear gradient is used for giving different colors*/
+      to right,  /*our item was left, we want it right, then add gradient colors 1,2,3*/
+      #fc8e8e 0%,  /* 0% here gives starting point of our gradient*/
+      #f0a4a4 51%,
+      #fc8e8e 100%
+      );
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+  }
+  
+  /*not supported by your browser right now 1*/
+  .button__primary:hover { /*hover when you move mouse on it*/
+    /* 1 background-position: center; for linear gradinet (left to right color), we use bg-pos,*/
+    border: 2px solid #f8a7a7;
+    cursor: pointer;
+  }
+  
+  .container{
+    max-width: 100%;
+    padding: 20px;
+    margin: 20px auto;
+  }
+  
+  .hero__image__container{
+    width: 100%;
+  }
+  
+  .hero__image{
+    /**border:2px solid white;**/
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%); /*instead of rgb u can use your choice colors*/
+  }
+  
+  .hero__text{
+  font-weight: 1000  ;
+  font-size: 35px;
+  margin: 20px 20px;
+  color: rgb(255, 68, 0);
+  }
+
+  .food__card__description{
+    padding: 15px;
+  }
+  
+  .food__card{
+    background-color: #F9F9F9;
+  }
+  
+  .food__card__image__container{
+    width: 100%;
+  }
+  
+  .food__image{
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .explore__menu__text{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 30px;
+    margin: 20px 0px;
+    color: rgb(0, 0, 0);
+  }
+  
+  @media (min-width: 768px) {
+  
+    .explore__menu__lists {
+      margin-top: 40px;
+      display: flex;
+      gap: 15px;
+      padding: 0px 30px;
+    }
+  
+    .explore__menu__container{
+      position: relative;
+      margin-top: 60px;
+    }
+  
+    .explore__menu__gradient__bg{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 110%;
+      background-image: linear-gradient(
+        to right,
+        #fcca8e 0%,
+        #fce8c3 51%,
+        #fc8e8e 100%
+        );
+        z-index: -3;
+  /* +ve z index over -ve z index one div on another div*/
+        transform: skewY(-6deg); /* skewY used for tilting rectangular box*/
+    }
+  
+    #pizza__card {
+      margin-top: -20px;
+      margin-bottom: 20px;
+    }
+  
+    .navbar{
+      justify-content: space-between;
+      padding: 10px 30px; /*10px top 30px left right */
+    }
+  
+    .hero__container {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row-reverse; /*reverses direction in row wise manner*/
+      align-items: center;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+  
+    .explore__menu__lists {
+      gap: 25px;
+    }
+  
+    .container{
+      max-width: 70%;
+    }
+  
+    .navbar__brand{
+      width: 125px;
+    }
+  
+    .button__primary{ /*use ctrl+F for searching*/
+      padding: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  
+    .hero__description{
+      width: 100%;
+    }
+  
+    .hero__text{
+      font-size: 34 px;
+    }
+  
+    .explore__menu__text{
+      font-size: 40px;
+    }
+  }
+  

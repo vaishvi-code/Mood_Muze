@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Mood Muze</title>
+    <style>
+        /* Basic reset and body styles */
+body, html {
+    background: url('bg3.jpg');
+    background-size: auto;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+/* Header styles */
+header {
+    background-color: transparent;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img{
+    color: #fff;
+    user-select: none;
+    width: 120px;
+    height: auto;
+    padding-right: 20px ;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+
+
+.navigation a:hover {
+    text-decoration: underline;
+}
+
+/* Video background */
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}
+
+/* Wrapper for centering content */
+.wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.337); /* Light background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Content styles */
+.content {
+    padding: 20px;
+}
+
+.content h2 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.content p {
+    color: #000000;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: transparent;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive adjustments (add as needed) */
+@media screen and (max-width: 768px) {
+    .wrapper {
+        padding: 10px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h2 class="logo"><img src="logo.png" alt="Mood Muze Logo"></h2>
+        <nav class="navigation">
+            <a href="home.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <video autoplay muted loop id="myVideo">
+        <source src="/images/magnetic_tape_-_4942 (540p).mp4" type="video/mp4">
+    </video>
+
+    <div class="wrapper">
+
+        <div class="content about">
+            <h2>About Mood Muze</h2>
+            <p>Welcome to Mood Muze, your ultimate destination for curated playlists based on your mood and location. Whether you're looking to relax, focus, or energize your day, Mood Muze offers a variety of music selections to suit every moment.</p>
+            <p>Our mission is to enhance your experiences through music, providing seamless access to playlists that resonate with your emotions and surroundings. Discover new tracks, revisit old favorites, and let Mood Muze soundtrack your life.</p>
+            <p>Stay tuned as we continue to expand our collection of playlists and enhance your music listening journey. Follow us on social media and join our community of music enthusiasts!</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="wrapper">
+            <p>&copy; 2024 Mood Muze. All rights reserved. | Designed by Mood Muze</p>
+        </div>
+    </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

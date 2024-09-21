@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h2 class="logo"><img src="logo.png" alt="logo"></h2>
+        <nav class="navigation">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <video autoplay muted loop id="myVideo">
+        <source src="/images/magnetic_tape_-_4942 (540p).mp4" type="video/mp4">
+    </video>
+
+    <div class="wrapper">
+
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form id="loginForm" action="#">
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="mail"></ion-icon>
+                    </span>
+                    <input type="email" id="email" name="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </span>
+                    <input type="password" id="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="login-register">
+                    <p>Don't have an account? <a href="register.html" class="register-link">Register</a></p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="login.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+    
+        // Get values from the form
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+    
+        // Here you would typically perform authentication
+        // For simplicity, let's assume the login is successful
+        var authenticated = true; // Replace with actual authentication logic
+    
+        if (authenticated) {
+            // Redirect to the button page
+            window.location.href = 'button.html'; // Replace with your button page URL
+        } else {
+            // Handle failed login (show error message, etc.)
+            alert('Login failed. Please check your credentials.');
+        }
+    });
+    </script>
+</body>
+</html>
