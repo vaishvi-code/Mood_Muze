@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Mood Muze — an AI-powered music recommendation system using facial emotion detection and geolocation." />
+  <title>About — Mood Muze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── About-specific styles ── */
+    .about-hero {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+
+    .about-hero-tag {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--purple);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .about-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .about-lead {
+      font-size: 1.1rem;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* Cards grid */
+    .about-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .about-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: var(--transition);
+    }
+
+    .about-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: var(--glass-hover);
+    }
+
+    .about-card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .about-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .about-card-text {
+      font-size: 0.9rem;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    /* Tech stack */
+    .tech-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .tech-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      list-style: none;
+    }
+
+    .tech-pill {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      padding: 10px 20px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .tech-pill:hover {
+      background: var(--glass-hover);
+      border-color: var(--purple);
+      color: var(--purple);
+    }
+
+    /* CTA */
+    .about-cta {
+      text-align: center;
+      padding: 20px 24px 80px;
+    }
+
+    .about-cta p {
+      color: var(--text-2);
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .about-hero { padding: 48px 20px 40px; }
+      .about-grid { padding: 0 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background orbs -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <a href="index.html" class="nav-logo" aria-label="Mood Muze Home">
+        <img src="logo.png" alt="Mood Muze logo" class="logo-img" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- About Hero -->
+  <section class="about-hero" aria-labelledby="about-heading">
+    <div class="about-hero-tag">Our Story</div>
+    <h1 id="about-heading" class="about-title">
+      Music that <span class="gradient-text">understands you</span>
+    </h1>
+    <p class="about-lead">
+      Mood Muze redefines the music listening experience by bridging the gap between
+      how you feel and what you hear — using real-time AI emotion recognition and
+      your physical location to surface the perfect Spotify playlist every single time.
+    </p>
+  </section>
+
+  <!-- Feature Cards -->
+  <div class="about-grid" role="list">
+
+    <article class="about-card" role="listitem">
+      <div class="about-card-icon" aria-hidden="true">🎭</div>
+      <h2 class="about-card-title">Emotion Recognition</h2>
+      <p class="about-card-text">
+        Our browser-based AI uses your webcam to detect your facial expression in real time.
+        It classifies your mood — happy, sad, angry, neutral, surprised and more — then
+        instantly surfaces a Spotify playlist handpicked for that emotion.
+      </p>
+    </article>
+
+    <article class="about-card" role="listitem">
+      <div class="about-card-icon" aria-hidden="true">🗺️</div>
+      <h2 class="about-card-title">Location-Based Music</h2>
+      <p class="about-card-text">
+        Share your location and Mood Muze reverse-geocodes it to your Indian state, then
+        serves a curated playlist rooted in the music, culture, and flavour of where you
+        are right now. 17 Indian states supported!
+      </p>
+    </article>
+
+    <article class="about-card" role="listitem">
+      <div class="about-card-icon" aria-hidden="true">🔒</div>
+      <h2 class="about-card-title">Private by Design</h2>
+      <p class="about-card-text">
+        All emotion detection happens entirely in your browser — no video is ever sent
+        to a server. Location data is only used for the geocoding lookup and is never
+        stored. Your data stays yours.
+      </p>
+    </article>
+
+    <article class="about-card" role="listitem">
+      <div class="about-card-icon" aria-hidden="true">🎵</div>
+      <h2 class="about-card-title">Spotify Integration</h2>
+      <p class="about-card-text">
+        Mood Muze plugs directly into Spotify's embed player — no login required.
+        Every recommendation opens as an immersive in-page player so you can start
+        listening instantly without leaving the app.
+      </p>
+    </article>
+
+  </div>
+
+  <!-- Tech Stack -->
+  <section class="tech-section" aria-labelledby="tech-heading">
+    <h2 id="tech-heading" class="tech-title">Built With</h2>
+    <ul class="tech-list">
+      <li class="tech-pill"><span aria-hidden="true">🧠</span> face-api.js</li>
+      <li class="tech-pill"><span aria-hidden="true">🎨</span> Vanilla HTML / CSS / JS</li>
+      <li class="tech-pill"><span aria-hidden="true">🟢</span> Spotify Embed API</li>
+      <li class="tech-pill"><span aria-hidden="true">🗺️</span> OpenStreetMap Nominatim</li>
+      <li class="tech-pill"><span aria-hidden="true">📡</span> Browser Geolocation API</li>
+      <li class="tech-pill"><span aria-hidden="true">📷</span> WebRTC getUserMedia</li>
+      <li class="tech-pill"><span aria-hidden="true">🚀</span> GitHub Pages</li>
+    </ul>
+  </section>
+
+  <!-- CTA -->
+  <div class="about-cta">
+    <p>Ready to find your soundtrack?</p>
+    <a href="index.html" class="btn btn-primary">
+      <span class="btn-icon">🎵</span> Go to Mood Muze
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2024 Mood Muze. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
