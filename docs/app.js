@@ -20,6 +20,18 @@ const emotionPlaylists = {
   neutral:   { type: 'playlist', id: '5MX1quD2Hrs1I59eRTJ1Q8', label: 'Chill 😐',     emoji: '😐' },
 };
 
+// ── Global country fallback playlists (for users outside India) ───
+const countryPlaylists = {
+  'United States': { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M', label: 'United States 🇺🇸' },
+  'United Kingdom': { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M', label: 'United Kingdom 🇬🇧' },
+  'Canada':         { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M', label: 'Canada 🇨🇦' },
+  'Australia':      { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M', label: 'Australia 🇦🇺' },
+  'Germany':        { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M', label: 'Germany 🇩🇪' },
+  'France':         { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M', label: 'France 🇫🇷' },
+  'Japan':          { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M', label: 'Japan 🇯🇵' },
+  'DEFAULT':        { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M', label: 'Global' },
+};
+
 // ── Indian State → playlist mapping ───────────────────────────
 const statePlaylists = {
   'Rajasthan':           { type: 'playlist', id: '2WSmlNi6hcFutn7q5samOV' },
@@ -39,8 +51,6 @@ const statePlaylists = {
   'Kerala':              { type: 'playlist', id: '6zTiiA1NGJZn33jejJVuM5' },
   'Karnataka':           { type: 'playlist', id: '1KhnrqdMdPGHVo0NzuemgZ' },
   'Telangana':           { type: 'playlist', id: '37i9dQZF1DWTw6jXuVBprS' },
-  // fallback for other states
-  'DEFAULT':             { type: 'playlist', id: '37i9dQZF1DXcBWIGoYBM5M' }, // Today's Top Hits
 };
 
 // ── DOM references ─────────────────────────────────────────────
@@ -62,6 +72,7 @@ const geoDesc        = document.getElementById('geo-desc');
 let mediaStream      = null;
 let modelsLoaded     = false;
 let detectionTimer   = null;
+let geoTimeoutId     = null;
 
 // ── Helpers ───────────────────────────────────────────────────
 function showModal(modal) {
@@ -223,6 +234,11 @@ function finishDetection(tally, total) {
 }
 
 // ── Geolocation Flow ──────────────────────────────────────────
+function closeGeoModal() {
+  if (geoTimeoutId) { clearTimeout(geoTimeoutId); geoTimeoutId = null; }
+  hideModal(geoModal);
+}
+
 async function startLocationDetection() {
   resultSection.hidden = true;
   resultSection.style.display = 'none';
@@ -235,37 +251,44 @@ async function startLocationDetection() {
   showModal(geoModal);
   geoDesc.textContent = 'Please allow location access when prompted…';
 
+  // Hard safety timeout — always dismiss after 15s no matter what
+  geoTimeoutId = setTimeout(() => {
+    closeGeoModal();
+    resolveLocationPlaylist(null, null);
+  }, 15000);
+
   navigator.geolocation.getCurrentPosition(
     async (position) => {
       const { latitude, longitude } = position.coords;
-      geoDesc.textContent = 'Got your location! Finding your state…';
+      geoDesc.textContent = 'Got your location! Finding where you are…';
 
       try {
-        const state = await reverseGeocode(latitude, longitude);
-        geoDesc.textContent = `You're in ${state || 'an unknown location'}!`;
+        const { state, country } = await reverseGeocode(latitude, longitude);
+        geoDesc.textContent = `You're in ${state || country || 'an unknown location'}!`;
 
         setTimeout(() => {
-          hideModal(geoModal);
-          resolveStatePlaylist(state);
+          closeGeoModal();
+          resolveLocationPlaylist(state, country);
         }, 900);
 
       } catch (err) {
-        geoDesc.textContent = 'Could not determine your location. Showing a global hit!';
+        geoDesc.textContent = 'Almost there…';
         setTimeout(() => {
-          hideModal(geoModal);
-          resolveStatePlaylist(null);
-        }, 1500);
+          closeGeoModal();
+          resolveLocationPlaylist(null, null);
+        }, 800);
       }
     },
     (err) => {
-      hideModal(geoModal);
+      closeGeoModal();
       if (err.code === err.PERMISSION_DENIED) {
         alert('Location permission denied. Please allow location access and try again.');
       } else {
-        alert('Could not get your location. Please try again.');
+        // Still show a global playlist rather than just an error
+        resolveLocationPlaylist(null, null);
       }
     },
-    { timeout: 10000, enableHighAccuracy: false }
+    { timeout: 12000, enableHighAccuracy: false }
   );
 }
 
@@ -274,21 +297,28 @@ async function reverseGeocode(lat, lon) {
   const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=en`;
   const res = await fetch(url, { headers: { 'Accept-Language': 'en' } });
   const data = await res.json();
-  // address.state gives the Indian state name
-  return data?.address?.state ?? null;
+  return {
+    state:   data?.address?.state   ?? null,
+    country: data?.address?.country ?? null,
+  };
 }
 
-function resolveStatePlaylist(stateName) {
-  const playlistData = statePlaylists[stateName] || statePlaylists['DEFAULT'];
-  const isKnownState = !!statePlaylists[stateName];
-  const locationLabel = isKnownState ? stateName : (stateName || 'your location');
+function resolveLocationPlaylist(stateName, countryName) {
+  // First try Indian state, then country fallback, then global default
+  const indianMatch  = stateName   ? statePlaylists[stateName]   : null;
+  const countryMatch = countryName ? countryPlaylists[countryName] : null;
+  const fallback     = countryPlaylists['DEFAULT'];
+
+  const playlistData = indianMatch || countryMatch || fallback;
+  const label = stateName || countryName || 'the World';
+  const isIndian = !!indianMatch;
 
   showResult({
     emoji:       '📍',
-    title:       `Vibes from ${locationLabel}`,
-    subtitle:    isKnownState
+    title:       `Vibes from ${label}`,
+    subtitle:    isIndian
       ? `Music rooted in the soul of ${stateName} 🎶`
-      : `Here's a global playlist to match your moment 🌍`,
+      : `Global hits to match your moment wherever you are 🌍`,
     spotifyType: playlistData.type,
     spotifyId:   playlistData.id,
   });
@@ -312,6 +342,14 @@ document.getElementById('closeModal').addEventListener('click', () => {
 // Close modal on overlay click
 webcamModal.addEventListener('click', (e) => {
   if (e.target === webcamModal) closeWebcamModal();
+});
+
+// Close geo modal button
+document.getElementById('closeGeoModal').addEventListener('click', closeGeoModal);
+
+// Close geo modal on overlay click
+geoModal.addEventListener('click', (e) => {
+  if (e.target === geoModal) closeGeoModal();
 });
 
 // Reset / Try Again
