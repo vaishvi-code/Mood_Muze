@@ -251,11 +251,11 @@ async function startLocationDetection() {
   showModal(geoModal);
   geoDesc.textContent = 'Please allow location access when prompted…';
 
-  // Hard safety timeout — always dismiss after 15s no matter what
+  // Hard safety timeout — always dismiss after 5s no matter what
   geoTimeoutId = setTimeout(() => {
     closeGeoModal();
     resolveLocationPlaylist(null, null);
-  }, 15000);
+  }, 5000);
 
   navigator.geolocation.getCurrentPosition(
     async (position) => {
