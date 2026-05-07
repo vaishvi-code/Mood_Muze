@@ -8,7 +8,7 @@ Mood Muze reads your facial expression via webcam (using [face-api.js](https://g
 
 ## 🚀 Live Demo
 
-**[▶ Try Mood Muze Live →](vaishvi-code.github.io/Mood_Muze/)**
+**[▶ Try Mood Muze Live →](https://vaishvi-code.github.io/Mood_Muze/)**
 
 *(Replace with your actual GitHub Pages URL after deployment)*
 
