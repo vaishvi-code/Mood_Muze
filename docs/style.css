@@ -45,6 +45,9 @@
   padding: 0;
 }
 
+/* Ensure [hidden] always wins over display:flex from classes */
+[hidden] { display: none !important; }
+
 html {
   scroll-behavior: smooth;
 }
